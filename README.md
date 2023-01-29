@@ -16,11 +16,11 @@ This ```R``` [script](seurat_preprocessing.r) will take the Cell Ranger output `
 
 ## Identifying clusters
 
-After ```SCTransform```, the number of principal components and resolution for UMAP reduction will be estimated using probabilistic approaches as described [here](clusters.md)
+After ```SCTransform```, the number of principal components and resolution for UMAP reduction will be estimated using probabilistic approaches as described [here](clusters.md).
 
 ## Cell annotation
 
-Using the integrated object, annotate the cell populations using the extensive dataset for mouse skin cell population markers published in [Joost _et al._ (2015)](https://doi.org/10.1016/j.cels.2016.08.010) and [Joost _et al._ (2020)](https://doi.org/10.1016/j.stem.2020.01.012).
+Using the integrated object, annotate the cell populations using the extensive dataset for mouse skin cell population markers published in [Joost _et al._ (2015)](https://doi.org/10.1016/j.cels.2016.08.010) and [Joost _et al._ (2020)](https://doi.org/10.1016/j.stem.2020.01.012) using this [script](annotation.md).
 
 ## Gene Ontology
 
