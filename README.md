@@ -22,9 +22,9 @@ After ```SCTransform```, the number of principal components and resolution for U
 
 Using the integrated object, annotate the cell populations using the extensive dataset for mouse skin cell population markers published in [Joost _et al._ (2015)](https://doi.org/10.1016/j.cels.2016.08.010) and [Joost _et al._ (2020)](https://doi.org/10.1016/j.stem.2020.01.012) using this [script](annotation.md).
 
-## Gene Ontology
-
 # RNA velocity
+
+To determine the terminal cell populations, first sort the ```.BAM``` files created in Cell Ranger, then run [velocyto](http://velocyto.org/velocyto.py/tutorial/analysis.html) to create ```.loom``` files with _spliced_ and _unspliced_ transcript matrix. Merge the loom files in _Python_ for [scVelo](https://scvelo.readthedocs.io/en/stable/). Finally, utilise [cellrank](http://cellrank.readthedocs.io) for estimating terminal cell states. The entire pipeline can be found [here].
 
 # Terminal cell fates
 
