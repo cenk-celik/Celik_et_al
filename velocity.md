@@ -1,3 +1,5 @@
+## Preprocess data for scVelo
+
 First, extract meta data using the integrated Seurat Object in ```R``` for each sample:
 
 ```R
@@ -119,15 +121,54 @@ sc.pl.umap(adata, color=['celltype'], frameon=False, save='umap_uninfected_cellt
 
 # save dataset as anndata format
 adata.write('seurat.h5ad')
+```
 
+Create colour palettes for matching colour schemes for the plots generated in ```R```:
+
+```python
+main_celltype_palette=['#F6766D', '#A2A402', '#00BD7C', '#00AEF4', '#E46AF1']
+colour_palette=["#F0A0FF", "#0075DC", "#993F00", "#4C005C", "#191919", 
+                "#005C31", "#2BCE48", "#FFCC99", "#808080", "#94FFB5",
+                "#8F7C00", "#9DCC00", "#C20088" ]
+cluster_palette=["#AA0DFE", "#3283FE", "#85660D", "#782AB6", "#565656",
+                 "#1C8356", "#16FF32", "#F7E1A0", "#E2E2E2", "#1CBE4F",
+                 "#C4451C", "#DEA0FD", "#FE00FA", "#325A9B", "#FEAF16",
+                 "#F8A19F", "#90AD1C", "#F6222E", "#1CFFCE", "#2ED9FF",
+                 "#B10DA1", "#C075A6", "#FC1CBF", "#B00068"]
+```
+
+Set parameters for scVelo plots:
+
+```python
 import scvelo as scv
 import cellrank as cr
+```
 
-# read .loom files created using velocyto for each sample in the integrated dataset
-ldata1 = scv.read('path_to/possorted_genome_bam.loom', cache=True, validate=False) # sample_1
-ldata2 = scv.read('path_to/possorted_genome_bam.loom', cache=True, validate=False) # sample_2, create as many as in your Seurat object
+```python
+scv.settings.verbosity = 2
+scv.settings.presenter_view = True
+scv.settings.set_figure_params(facecolor='white', dpi_save=300, frameon=False, vector_friendly=True,
+                              figsize=(5,5), format='svg', transparent=True)
+scv.settings.plot_prefix = 'infected_'
 
-# rename barcodes in order to merge
+cr.settings.verbosity = 2
+```
+
+Load ```adata```:
+```python
+adata = sc.read_h5ad('infected_seurat.h5ad')
+```
+
+Read ```.loom``` files created using velocyto for each sample in the integrated dataset:
+
+```python
+ldata1 = scv.read('/Users/cenk/nmrc/data/infected_1/outs/possorted_genome_bam.loom', cache=False, validate=False)
+ldata2 = scv.read('/Users/cenk/nmrc/data/infected_2/outs/possorted_genome_bam.loom', cache=False, validate=False)
+```
+
+Rename barcodes in order to merge the samples for a condition
+
+```python
 barcodes = [bc.split(':')[1] for bc in ldata1.obs.index.tolist()]
 barcodes = [bc[0:len(bc)-1] + '_1' for bc in barcodes]
 ldata1.obs.index = barcodes
@@ -141,11 +182,89 @@ ldata2.var_names_make_unique()
 
 # concatenate loom data
 ldata = ldata1.concatenate(ldata2)
-
-# merge matrices into the original adata object
-adata = scv.utils.merge(adata, ldata)
-
-# check if UMAP is identical to that of created in Seurat
-sc.pl.umap(adata, color='celltype', frameon=False, legend_loc='on data', 
-           title='', save='umap.svg')
 ```
+
+Merge matrices into the original adata object:
+
+```python
+adata = scv.utils.merge(adata, ldata)
+```
+
+Check if UMAP is identical to that of created in Seurat:
+
+```python
+sc.pl.umap(adata, color='seurat_clusters', frameon=False, legend_loc='on data', 
+           title='', palette=cluster_palette)
+```
+
+Visualise spliced/unspliced proportions for the cell 2nd level cell populations:
+
+```python
+scv.pl.proportions(adata, groupby='celltype_2nd', save = 'spliced_unspliced.svg')
+```
+
+Filter and normalise the data:
+
+```python
+scv.pp.filter_and_normalize(adata)
+scv.pp.moments(adata)
+```
+
+Compute velocity using ```dynamical``` mode in scVelo:
+
+```python
+scv.tl.recover_dynamics(adata)
+scv.tl.velocity(adata, mode='dynamical')
+scv.tl.velocity_graph(adata)
+```
+
+Estimate latent time and top genes:
+
+```python
+df = adata.var
+df = df[(df['fit_likelihood'] > .1) & df['velocity_genes'] == True]
+
+kwargs = dict(xscale='log', fontsize=16)
+with scv.GridSpec(ncols=3) as pl:
+    pl.hist(df['fit_alpha'], xlabel='transcription rate', **kwargs)
+    pl.hist(df['fit_beta'] * df['fit_scaling'], xlabel='splicing rate', xticks=[.1, .4, 1], **kwargs)
+    pl.hist(df['fit_gamma'], xlabel='degradation rate', xticks=[.1, .4, 1], **kwargs)
+
+scv.get_df(adata, 'fit*', dropna=True).head()
+
+scv.tl.latent_time(adata)
+scv.pl.scatter(adata, color='latent_time', color_map='gnuplot', size=80, save='scatter_latent_time.svg')
+
+top_genes = adata.var['fit_likelihood'].sort_values(ascending=False).index[:300]
+scv.pl.heatmap(adata, var_names=top_genes, sortby='latent_time', col_color='seurat_clusters', n_convolve=100,
+              save='overall_latent_time.pdf')
+```
+
+
+Visualise top likelihood genes
+
+```python
+kwargs = dict(frameon=False, size=10, linewidth=1.5)
+
+top_genes = adata.var['fit_likelihood'].sort_values(ascending=False).index
+scv.pl.scatter(adata, basis=top_genes[:15], ncols=5, **kwargs, save='top_likelihood_genes.svg',
+              color='seurat_clusters')
+```
+
+Cluster specific top likelihood genes:
+
+```python
+scv.tl.rank_dynamical_genes(adata, groupby='seurat_clusters')
+df = scv.get_df(adata, 'rank_dynamical_genes/names')
+df.head(5)
+```
+
+Identify important genes:
+```python
+scv.tl.rank_velocity_genes(adata, groupby='seurat_clusters', min_corr=.3)
+df = scv.DataFrame(adata.uns['rank_velocity_genes']['names'])
+df.head()
+```
+
+## Cell Rank
+
