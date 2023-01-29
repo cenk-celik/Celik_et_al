@@ -24,7 +24,7 @@ Using the integrated object, annotate the cell populations using the extensive d
 
 # RNA velocity
 
-To determine the terminal cell populations, first sort the ```.BAM``` files created in Cell Ranger in [samtools](http://samtools.github.io) based on _Cell barcodes_ (```CB```), then run [velocyto](http://velocyto.org/velocyto.py/tutorial/analysis.html) to create ```.loom``` files that includes _spliced_ and _unspliced_ transcript matrix. Merge the loom files in _Python_ for [scVelo](https://scvelo.readthedocs.io/en/stable/). Finally, utilise [cellrank](http://cellrank.readthedocs.io) for estimating terminal cell states. The entire pipeline can be found [here]().
+To determine the terminal cell populations, first sort the ```.BAM``` files created in Cell Ranger in [samtools](http://samtools.github.io) based on _Cell barcodes_ (```CB```), then run [velocyto](http://velocyto.org/velocyto.py/tutorial/analysis.html) to create ```.loom``` files that includes _spliced_ and _unspliced_ transcript matrix. Merge the loom files in _Python_ for [scVelo](https://scvelo.readthedocs.io/en/stable/). Finally, utilise [cellrank](http://cellrank.readthedocs.io) for estimating terminal cell states. The entire pipeline can be found [here](velocity.md).
 
 # Cell-cell interactions
 
