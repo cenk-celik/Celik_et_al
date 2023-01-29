@@ -1,7 +1,7 @@
 # Celik_et_al_2023
 Scripts used in:
 
-Celik C, XXX
+Celik C _et al._ [in preparation].
 
 # Pre-processing single-cell rawdata
 
