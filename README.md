@@ -28,4 +28,4 @@ To determine the terminal cell populations, first sort the ```.BAM``` files crea
 
 # Cell-cell interactions
 
-[To be updated]
+Cell-cell interactions were conducted using ```NicheNet``` package in ```R```, where no new scripts were generated. While I am still preparing the script to share, the original scripts can be found [here](https://github.com/saeyslab/nichenetr/blob/master/vignettes/seurat_wrapper_circos.md).
