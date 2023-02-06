@@ -46,6 +46,6 @@ The data is now ready for estimating terminal cell states using ```CellRank```:
 
 Compute lineage drivers in ```CellRank```:
 
-[8.Compute lineage drivers and visualise top lineage driving genes for a cluster of interest](8.lineage_drivers.py)
+[8. Compute lineage drivers and visualise top lineage driving genes for a cluster of interest](8.lineage_drivers.py)
 
 More can be found in [this Jupyter notebook](infected_rna_velocity_complete.ipynb).
