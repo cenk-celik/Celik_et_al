@@ -13,16 +13,16 @@ infected.2 <- split.list[[4]]
 rm(split.list); gc()
 
 uninfected.1.barcodes <- gsub('_1', '', colnames(uninfected.1))
-write.csv(uninfected.1.barcodes, file = '20220929_uninfected_1_barcodes.tsv')
+write.csv(uninfected.1.barcodes, file = 'uninfected_1_barcodes.tsv')
 
 uninfected.2.barcodes <- gsub('_2', '', colnames(uninfected.2))
-write.csv(uninfected.2.barcodes, file = '20220929_uninfected_2_barcodes.tsv')
+write.csv(uninfected.2.barcodes, file = 'uninfected_2_barcodes.tsv')
 
 infected.1.barcodes <- gsub('_3', '', colnames(infected.1))
-write.csv(infected.1.barcodes, file = '20220929_infected_1_barcodes.tsv')
+write.csv(infected.1.barcodes, file = 'infected_1_barcodes.tsv')
 
 infected.2.barcodes <- gsub('_4', '', colnames(infected.2))
-write.csv(infected.2.barcodes, file = '20220929_infected_2_barcodes.tsv')
+write.csv(infected.2.barcodes, file = 'infected_2_barcodes.tsv')
 ```
 
 Two datasets are needed for each sample for creating ```.loom``` files:
