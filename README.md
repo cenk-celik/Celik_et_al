@@ -28,4 +28,4 @@ To determine the terminal state of clusters, first sort the ```.BAM``` files cre
 
 # Cell-cell interactions
 
-Cell-cell interactions were conducted using ```NicheNet``` package in ```R```, where no new scripts were generated. While I am still preparing the script to share, the original scripts can be found [here](https://github.com/saeyslab/nichenetr/blob/master/vignettes/seurat_wrapper_circos.md).
+Cell-cell interactions were conducted using ```NicheNet``` package in ```R```, where no new scripts were generated. Nevertheless, the pipeline can be found [here](cell_cell_interactions/nichenet.md).
