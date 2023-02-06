@@ -10,7 +10,6 @@ seurat_obj <- readRDS('seurat.rds')
 DefaultAssay(seurat_obj) <- 'RNA'
 seurat_obj[['SCT']] <- NULL
 seurat_obj[['integrated']] <- NULL
-#seurat_obj <- DietSeurat(seurat_obj, dimreducs = 'umap')
 
 seurat_obj <- RenameIdents(
   seurat_obj,
@@ -26,10 +25,6 @@ seurat_obj <- RenameIdents(
     'TRM' = 'Tissue resident macrophage',
     'EC1' = 'Endothelial',
     'EC2' = 'Endothelial',
-    #'HFSUP1' = 'Keratinocyte',
-    #'HFSUP2' = 'Keratinocyte',
-    #'OB' = 'Keratinocyte',
-    #'SG' = 'Keratinocyte',
     'NEUT1' = 'Neutrophil',
     'NEUT2' = 'Neutrophil',
     'TMEM' = 'Memory T cell',
@@ -89,7 +84,7 @@ if (organism == 'mouse') {
   ligand_target_matrix = ligand_target_matrix %>% .[!is.na(rownames(ligand_target_matrix)), !is.na(colnames(ligand_target_matrix))]
 }
 
-##----M1-like----
+##----Tissue resident macrophages----
 # Define the niches/microenvironments of interest
 niches = list(
   'infected_niche' = list(
@@ -183,8 +178,8 @@ include_spatial_info_sender = F
 include_spatial_info_receiver = F
 
 spatial_info = tibble(
-  celltype_region_oi = 'Basal_infected',
-  celltype_other_region = 'Suprabasal_infected',
+  celltype_region_oi = '',
+  celltype_other_region = '',
   niche =  'infected_niche',
   celltype_type = 'sender'
 )
@@ -1122,4 +1117,5 @@ circos_output = make_circos_lr(prioritized_tbl_oi,
                                scale = T, border = F,
                                transparency = transparency)
 dev.off()
+
 sessionInfo()
