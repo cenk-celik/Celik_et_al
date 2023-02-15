@@ -12,7 +12,7 @@ This [script](cellranger_scripts.md) contains preprocessing and obtaining counts
 
 # Integration of data
 
-This ```R``` [script](seurat_preprocessing.r) will take the Cell Ranger output ```filtered_feature_bc_matrix``` data as input, filter out doublet GEMs and low quality cells, and integrate the two conditions in the Seurat package (v4.3.0) using ```SCTransform``` function.
+This ```R``` [script](seurat_preprocessing.md) will take the Cell Ranger output ```filtered_feature_bc_matrix``` data as input, filter out doublet GEMs and low quality cells, and integrate the two conditions in the Seurat package (v4.3.0) using ```SCTransform``` function.
 
 ## Identifying clusters
 
