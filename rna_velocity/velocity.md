@@ -48,4 +48,9 @@ Compute lineage drivers in ```CellRank```:
 
 [8. Compute lineage drivers and visualise top lineage driving genes for a cluster of interest](8.lineage_drivers.py)
 
-More can be found in [this Jupyter notebook](infected_rna_velocity_complete.ipynb).
+More can be found in Jupyter notebooks:
+
+8.1. [Infected overall velocity](infected_rna_velocity_complete.ipynb).
+8.2. [Uninfected overall velocity](uninfected_rna_velocity_complete.ipynb).
+8.3. [Infected subsets top likelihood analysis](infected_reanalysis.ipynb).
+8.4. [Uninfected subsets top likelihood analysis](uninfected_reanalysis.ipynb).
