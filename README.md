@@ -28,4 +28,4 @@ To determine the terminal state of clusters, first sort the ```.BAM``` files cre
 
 # Cell-cell interactions
 
-Cell-cell interactions were conducted using ```NicheNet``` package in ```R```, where no new scripts were generated. Nevertheless, the pipeline can be found [here](cell_cell_interactions/nichenet.md).
+Cell-cell interactions were conducted using ```NicheNet``` package in ```R```, where no new scripts were generated. Nevertheless, the pipeline can be found [here](cell_cell_interactions/nichenet.md). We also employed [```CellChat```](http://cellchat.org) to analyse secreted ligand-receptor interactions. First, we created ```cellchat``` [objects](cell_cell_interactions/CellChat.R), then compared the [differential interactome](cell_cell_interactions/CellChat_comparison.R) between the uninfected and infected datasets.
