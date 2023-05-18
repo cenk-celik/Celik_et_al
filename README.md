@@ -1,7 +1,5 @@
-# Celik_et_al_2023
-Scripts used in:
-
-Celik C _et al._ [in preparation].
+# A single-cell atlas of skin wounds upon E. faecalis infection
+Scripts used in Celik C _et al._ [in preparation].
 
 # Pre-processing single-cell rawdata
 
