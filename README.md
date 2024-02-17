@@ -1,5 +1,5 @@
 # A single-cell atlas of skin wounds upon _E. faecalis_ infection
-Scripts used in Celik C _et al._ [in preparation].
+Scripts used in Celik C _et al._ that can be found on [biorxiv](https://doi.org/10.1101/2023.11.16.566967).
 
 # Pre-processing single-cell rawdata
 
