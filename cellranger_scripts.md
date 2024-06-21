@@ -1,6 +1,6 @@
 # Cell Ranger script for obtaining counts from the fastq files
 
-- Cell Ranger works only on Linux. Make sure you have successfully installed the [Cell Ranger](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/6.1/installation). on your system.
+- Cell Ranger works only on Linux. Make sure you have successfully installed the [Cell Ranger](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/6.1/installation) on your system.
 - Place the *fastqs* in the same folder for each sample
 - Download the reference genome for mouse from [10X Genomics](https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/6.1).
 
